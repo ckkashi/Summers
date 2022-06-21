@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL CLOCK</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body class="bg-primary">
+    <h1 class="text-center text-light mt-5 mb-5">TODO List</h1>
+    <div class="container d-flex justify-content-center">
+        <input class="form-control p-3 m-1" type="text" id="todoField" style="width: 18rem;" placeholder="Enter todo">
+        <button class="btn  btn-success p-3 m-1" id="addBtn">Add</button>
+    </div>
+    <div class="bg-body d-flex justify-content-center align-items-center shadow-sm mt-5 ms-auto me-auto rounded" style="width: 23rem;">
+        <table class="table table-hover text-center" id="todosTable">
+            <thead>
+                <th>Si</th>
+                <th>TODO Names</th> 
+            </thead>
+        </table>
+    </div>
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        let todos = [];
+        
+        const dataLoad = ()=>{
+            todos = JSON.parse(localStorage.getItem('todos'));
+            let table = document.getElementById('todosTable');
+            for(var i = 0; i<todos.length; i++){
+                let row = table.insertRow();
+                let cell0 = row.insertCell();
+                let cell1 = row.insertCell();
+                let cell2 = row.insertCell();
+                cell0.innerHTML = i;
+                cell1.innerHTML = todos[i];
+            }
+       }
+        dataLoad();
+       
+        let addBtn = document.getElementById('addBtn');
+        addBtn.onclick = ()=>{
+            let todo = document.getElementById('todoField');
+            if(todo.value === ''){
+                alert('Fill fields');
+            }else{
+                todos.push(todo.value);
+                localStorage.setItem('todos',JSON.stringify(todos));
+                window.location.reload();
+            }
+       }; 
+       
+    </script>
+
+</body>
+</html>
